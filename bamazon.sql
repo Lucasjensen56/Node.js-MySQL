@@ -24,16 +24,3 @@ INSERT INTO `products` (`id`,`item_id`,`product_name`,`department_name`,`price`,
 INSERT INTO `products` (`id`,`item_id`,`product_name`,`department_name`,`price`, `stock_quantity`) VALUES (NULL, "Running Shoes", "Health and Fitness","79.00", '10');
 INSERT INTO `products` (`id`,`item_id`,`product_name`,`department_name`,`price`, `stock_quantity`) VALUES (NULL, "Protein bar", "Health and Fitness","1.99", '5');
 
-
-© 2018 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-API
-Training
-Shop
-Blog
-About
