@@ -20,6 +20,15 @@ connection.connect(function(err) {
   connection.end();
 });
 
+function afterConnection() {
+  connection.query("SELECT * FROM products", function(err, res) {
+    if (err) throw err:
+    console.log(res);
+    connection.end();
+  });
+  
+};
+
 
 
 
