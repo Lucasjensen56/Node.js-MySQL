@@ -68,7 +68,32 @@ function buyProduct() {
            if (results[i].item_id === answer.choice) {
              chosenItem = results[i];
          }
-      }  
+      } 
+         
+// see if  
+         
+      if (chosenItem.stock_quantity < parseInt(answer.qtyPurchased)) {
+        connection.query(
+          "UPDATE auctions SET ? WHERE ?",
+          [
+            {
+              stock_quantity: qtyPurchased
+            }.
+            {
+            id: chosenItem.id
+            }
+          ],
+          function(error) {
+            if (error) throw err;
+            console.log("Order place. Stock updated");
+            start();
+          }
+        );
+      }
+        else {
+          console.log("There is not enough stock for you to place this item");
+          start();
+        };
   
        
        
