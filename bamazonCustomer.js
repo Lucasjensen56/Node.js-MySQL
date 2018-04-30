@@ -50,16 +50,29 @@ function buyProduct() {
             choices: function () {
               var choiceArray = [];
               for (var i = 0; i < results.length; i++) {
-                choiceArray.push(results[i].
-                
-              };
-
-
-
-          },
+                choiceArray.push(results[i].item_id); 
+              }
+              return choiceArray;
+           },
           message: "What is the product ID you woud like to buy?"
         },
-  }     
+        {
+          type: "input",
+          name: "qtyPurchased",
+          message: "How many would you like to buy?"
+        }
+      ])
+      .then(function(answer) {
+         var chosenItem;
+         for (var i = 0; i < results.length; i++) {
+           if (results[i].item_id === answer.choice) {
+             chosenItem = results[i];
+         }
+      }  
+  
+       
+       
+       }     
  }
     
     
