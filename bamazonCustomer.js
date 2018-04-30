@@ -20,25 +20,39 @@ connection.connect(function(err) {
   connection.end();
 });
 
-function afterConnection() {
-  connection.query("SELECT * FROM products", function(err, res) {
-    if (err) throw err:
-    console.log(res);
-    connection.end();
-  });
+// function afterConnection() {
+//   connection.query("SELECT * FROM products", function(err, res) {
+//     if (err) throw err:
+//     console.log(res);
+//     connection.end();
+//   });
   
-};
+// };
 
 
 
 function start() {
   
-  
+  inquirer
+    .prompt({
+      name: "buyOrNot",
+      type: "confirm",
+      message: "Would you like to buy a product from bamazon?"
+    })
+    .then(function(answer) {
+      // based on their answer, either call the bid or the post functions
+      if (answer === true) {
+        buyProducts();
+      }
+      else {
+        console.log("Thank you for your business. Try again later");
+      }
+    });
 };
     
     
     
-function buyProduct() {
+function buyProducts() {
   
   connection.query("SELECT * FROM products", function(err, results) {
     if (err) throw err;
