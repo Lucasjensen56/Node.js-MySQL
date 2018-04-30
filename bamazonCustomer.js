@@ -1,14 +1,14 @@
 var mysql = require("mysql");
 
-var inquirer = require("requirer");
+var inquirer = require("inquirer");
 
 var connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   
-  user: "????",
+  user: "root",
   
-  pasword: "",
+  pasword: "Volund56",
   database: "bamazon"
   
 });
@@ -31,24 +31,37 @@ function afterConnection() {
 
 
 
+function start() {
+  
+  
+};
+    
+    
+    
+function buyProduct() {
+  
+  connection.query("SELECT * FROM products", function(err, results) {
+    if (err) throw err;
+    
+       inquirer.prompt([
+          {
+            type: "rawlist",
+            name: "product_ID",
+            choices: function () {
+              var choiceArray = [];
+              for (var i = 0; i < results.length; i++) {
+                choiceArray.push(results[i].
+                
+              };
 
-inquirer.prompt([
-  
-  {
-    type: "input",
-    name: "product_ID",
-    message: "What is the product ID you woud like to buy?"
-  },
-  
-  {
-    type: "input",
-    name: "Number of product to buy?",
-    message: "How many would you like to buy?"
-  },
-  
-  ]).then(function(user) {
-  
-  
-  
-  
-});
+
+
+          },
+          message: "What is the product ID you woud like to buy?"
+        },
+  }     
+ }
+    
+    
+
+
