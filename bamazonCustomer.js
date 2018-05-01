@@ -120,11 +120,14 @@ function buyProducts() {
   });
 };
 
-function checkInvetory(choiceID) {
+function checkInvetory(choiceID, inventory) {
   // check innentory to to make sure that the item you chose to have in stock. Can call the function each time
    connection.query("SELECT * FROM products", function (err, results) {
       if (err) throw err;
       console.log(results)
+     
+      //need to cycle through and grab the chosen item from the user choice, and then return current inventory.
+      // loop -- grab "item" and stock associated with item"      
       for (var i = 0; i < results.length; i++) {
               console.log(results[i].stock_quantity)
                 // choiceArray.push(results[i].product_name); 
