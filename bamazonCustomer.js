@@ -38,7 +38,7 @@ function start() {
     .then(function(answer) {
       // based on their answer, either call the bid or the post functions
       if (answer.buyOrNot === true) {
-        buyProducts();
+       checkInvetory("iPhone");
       }
       else {
         console.log("Thank you for your business. Try again later");
@@ -57,17 +57,20 @@ function showItems() {
 function buyProducts() {
   connection.query("SELECT * FROM products", function(err, results) {
 
+    console.log(results[0].stock_quantity);
+
     inquirer.prompt([
           {
             type: "list",
             name: "product_ID",
-            choices: ["a", "b"],
+            // choices: ["a", "b"],
             choices: function () {
               var choiceArray = [];
               for (var i = 0; i < results.length; i++) {
                 choiceArray.push(results[i].product_name); 
               }
               return choiceArray;
+
             },
             // choices: choiceArray,
             message: "What is the product ID you woud like to buy?"
@@ -78,20 +81,82 @@ function buyProducts() {
           message: "How many would you like to buy?"
         }
       ]).then(function(answer) {
-        console.log(answer);
-         var chosenItem;
-         for (var i = 0; i < results.length; i++) {
-            if (results[i].product_name === answer.choice) {
-             chosenItem = results[i];
-            console.log(chosenItem);
+        console.log(answer)
 
+        console.log(parseInt(answer.qtyPurchased));
+
+        console.log(answer.product_ID);
+
+        // var chosenItem = answer.product_ID;
+
+        // console.log(answer[0].stock_quantity)
+
+        // console.log(stock_quantity)
+
+
+         var chosenItem
+
+         for (var i = 0; i < results.length; i++) {
+            if (results[i].product_name === answer.qtyPurchased) {
+              console("this worked ")
+             chosenItem = results[i];
+            }
+            else {
+              console.log("this didn't work")
             }
           }
+
+
+        if (chosenItem.stock_quantity < parseInt(answer.qtyPurchased)) {
+          console.log("We have this in stock")
+        }
+        else {
+          console.log("We don't have this in stock")
+        }
+
+
 
       });
   });
 };
 
+function checkInvetory(choiceID) {
+  // check innentory to to make sure that the item you chose to have in stock. Can call the function each time
+   connection.query("SELECT * FROM products", function (err, results) {
+      if (err) throw err;
+      console.log(results)
+      for (var i = 0; i < results.length; i++) {
+              console.log(results[i].stock_quantity)
+                // choiceArray.push(results[i].product_name); 
+              }
+        
+    });
+
+};
+
+
+// if (chosenItem.stock_quantity < parseInt(answer.qtyPurchased)) {
+// //         connection.query(
+// //           "UPDATE auctions SET ? WHERE ?",
+// //           [
+// //             {
+// //               stock_quantity: qtyPurchased
+// //             },
+// //             {
+// //             id: chosenItem.id
+// //             }
+// //           ],
+// //           function(error) {
+// //             if (error) throw err;
+// //             console.log("Order place. Stock updated");
+// //             start();
+// //           }
+// //         );
+// //       }
+// //         else {
+// //           console.log("There is not enough stock for you to place this item");
+// //           start();
+// //         };
 
 
     
