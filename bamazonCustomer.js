@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  start()
+  start();
   // connection.end();
 
   
@@ -38,7 +38,8 @@ function start() {
     .then(function(answer) {
       // based on their answer, either call the bid or the post functions
       if (answer.buyOrNot === true) {
-       checkInvetory("iPhone");
+        buyProducts();
+       // checkInvetory("iPhone");
       }
       else {
         console.log("Thank you for your business. Try again later");
@@ -57,7 +58,7 @@ function showItems() {
 function buyProducts() {
   connection.query("SELECT * FROM products", function(err, results) {
 
-    console.log(results[0].stock_quantity);
+    // console.log(results[1].stock_quantity);
 
     inquirer.prompt([
           {
@@ -67,7 +68,10 @@ function buyProducts() {
             choices: function () {
               var choiceArray = [];
               for (var i = 0; i < results.length; i++) {
-                choiceArray.push(results[i].product_name); 
+                choiceArray.push(results[i].product_name);
+                // console.log("Current QTY " + results[i].stock_quantity);
+                // console.log("Price: " + results[i].price);
+                 
               }
               return choiceArray;
 
@@ -81,30 +85,36 @@ function buyProducts() {
           message: "How many would you like to buy?"
         }
       ]).then(function(answer) {
+
         console.log(answer)
 
-        console.log(parseInt(answer.qtyPurchased));
+        // console.log(parseInt(answer.qtyPurchased));
 
-        console.log(answer.product_ID);
+        // console.log(answer.product_ID);
 
-        // var chosenItem = answer.product_ID;
+        // console.log(results)
 
-        // console.log(answer[0].stock_quantity)
+        var chosenItem = answer.product_ID;
+
+        checkInvetory(chosenItem);
+
+           console.log(itemPrice);
+
 
         // console.log(stock_quantity)
 
 
-         var chosenItem
+         // var chosenItem
 
-         for (var i = 0; i < results.length; i++) {
-            if (results[i].product_name === answer.qtyPurchased) {
-              console("this worked ")
-             chosenItem = results[i];
-            }
-            else {
-              console.log("this didn't work")
-            }
-          }
+         // for (var i = 0; i < results.length; i++) {
+         //    if (results[i].product_name === answer.qtyPurchased) {
+         //      console("this worked ")
+         //     chosenItem = results[i];
+         //    }
+         //    else {
+         //      // console.log("this didn't work")
+         //    }
+         //  }
 
 
         if (chosenItem.stock_quantity < parseInt(answer.qtyPurchased)) {
@@ -120,22 +130,44 @@ function buyProducts() {
   });
 };
 
-function checkInvetory(choiceID, inventory) {
+
+
+
+function checkInvetory(choiceProduct, callback) {
   // check innentory to to make sure that the item you chose to have in stock. Can call the function each time
-   connection.query("SELECT * FROM products", function (err, results) {
+   connection.query(`SELECT * FROM products WHERE product_name='${choiceProduct}'`, function (err, results) {
       if (err) throw err;
       console.log(results)
+
+
+      
+      var itemPriceArray = [];
      
       //need to cycle through and grab the chosen item from the user choice, and then return current inventory.
       // loop -- grab "item" and stock associated with item"      
       for (var i = 0; i < results.length; i++) {
-              console.log(results[i].stock_quantity)
+
+            var itemStock = results[i].stock_quantity;
+            var itemPrice = results[i].price;
+
+            itemPriceArray.push(results[i].price);
+
+
+              // console.log(itemStock);
+              // console.log(itemPrice);
                 // choiceArray.push(results[i].product_name); 
               }
+              
         
     });
 
+   console.log(itemPriceArray);
+
+
+  callback(itemPrice);
+
 };
+
 
 
 // if (chosenItem.stock_quantity < parseInt(answer.qtyPurchased)) {
