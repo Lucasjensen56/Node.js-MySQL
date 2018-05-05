@@ -4,4 +4,4 @@
 
 ### How to Use
 
-![Step one](/images/toPurchase?.png)
+![Step one](./images/toPurchase.png)
