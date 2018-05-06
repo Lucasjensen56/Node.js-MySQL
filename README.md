@@ -29,7 +29,15 @@ If stock is available, the order will be placed and the total cost will be displ
 
 ![Step Three](./images/orderPlaced.png)
 
+
+## Step Four
+
+
 ![Step Four](./images/noneInStock.png)
+
+
+
+## Step Five
 
 ![Step Five](./images/buy.png)
 
