@@ -23,7 +23,8 @@ After selecting a product, enter how many you would like to purchase
 
 
 ## Step Three
-
+The app will show if there is stock available. 
+If stock is available, the order will be placed and the total cost will be displayed. 
 
 
 ![Step Three](./images/orderPlaced.png)
