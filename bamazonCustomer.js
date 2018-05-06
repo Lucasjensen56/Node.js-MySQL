@@ -17,16 +17,10 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   console.log("connected as id " + connection.threadId);
-  start();
-  // connection.end();
-
-  
+  start();  
 });
 
-
-
 function start() {
-  
   inquirer
     .prompt({
       name: "buyOrNot",
@@ -35,7 +29,6 @@ function start() {
       default: true
     })
     .then(function(answer) {
-      // based on their answer, either call the bid or the post functions
       if (answer.buyOrNot === true) {
         buyProducts();
       }
@@ -55,9 +48,6 @@ function showItems() {
 
 function buyProducts() {
   connection.query("SELECT * FROM products", function(err, results) {
-
-    // console.log(results[1].stock_quantity);
-
     inquirer.prompt([
           {
             type: "list",
@@ -65,14 +55,10 @@ function buyProducts() {
             choices: function () {
               var choiceArray = [];
               for (var i = 0; i < results.length; i++) {
-                choiceArray.push(results[i].product_name);
-
-                 
+                choiceArray.push(results[i].product_name);    
               }
               return choiceArray;
-
             },
-            // choices: choiceArray,
             message: "What is the product ID you woud like to buy?"
         },
         {
@@ -81,29 +67,17 @@ function buyProducts() {
           message: "How many would you like to buy?"
         }
       ]).then(function(answer) {
-
-        // console.log(answer)
-
         var chosenItem = answer.product_ID;
-
         var qtyWanted = answer.qtyPurchased;
-
         checkInvetory(chosenItem, qtyWanted);
-
-
-
       });
   });
 };
 
 
-
-
 function checkInvetory(choiceProduct, qtyToBuy) {
-  // check innentory to to make sure that the item you chose to have in stock. Can call the function each time
    connection.query(`SELECT * FROM products WHERE product_name='${choiceProduct}'`, function (err, results) {
       if (err) throw err;
-       
       for (var i = 0; i < results.length; i++) {
             var itemStock = results[i].stock_quantity;
             var itemPrice = results[i].price;
@@ -113,16 +87,11 @@ function checkInvetory(choiceProduct, qtyToBuy) {
 
       if (qtyToBuy <= itemStock) {
         console.log("We have this in stock. There are " + updatedStock + " remaining")
-
             var query = connection.query(
-              // probably need a function that take the qtytobuy and subtracts its
-              // from the total qty. Set the qty as that
             "UPDATE products SET ? WHERE ?",
             [
               {
-                // stock_quantity: qtyToBuy
                 stock_quantity: updatedStock
-
               },
               {
               product_name: choiceProduct
@@ -145,45 +114,4 @@ function checkInvetory(choiceProduct, qtyToBuy) {
     });
 
 };
-
-
-
-
-         
-// // // see if  
-         
-// //       if (chosenItem.stock_quantity < parseInt(answer.qtyPurchased)) {
-// //         connection.query(
-// //           "UPDATE auctions SET ? WHERE ?",
-// //           [
-// //             {
-// //               stock_quantity: qtyPurchased
-// //             },
-// //             {
-// //             id: chosenItem.id
-// //             }
-// //           ],
-// //           function(error) {
-// //             if (error) throw err;
-// //             console.log("Order place. Stock updated");
-// //             start();
-// //           }
-// //         );
-// //       }
-// //         else {
-// //           console.log("There is not enough stock for you to place this item");
-// //           start();
-// //         };
-  
-// // //     });
-//   });     
-// }
-
-
-
-
-
-    
-    
-
 
