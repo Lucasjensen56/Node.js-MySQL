@@ -2,6 +2,9 @@
 
 ## Introduction
 
+### Packages Used
+
+
 ### How to Use
 
 
@@ -35,9 +38,7 @@ If stock is available, the order will be placed and the total cost will be displ
 
 
 
-### Step Five
 
-![Step Five](./images/buy.png)
 
 
 
