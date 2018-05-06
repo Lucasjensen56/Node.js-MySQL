@@ -14,10 +14,16 @@
 ![Step one](./images/toPurchase.png)
 
 
+## Step Two
+You will then be prompted with a list of products to choose from.
+After selecting a product, enter how many you would like to purchase
 
-	* You will then be prompted with a list of products to choose from. After selecting a product, enter how many you would like to purchase
+
 ![Step Two](./images/productList.png)
-	* 
+
+
+## Step Three
+
 
 
 ![Step Three](./images/orderPlaced.png)
