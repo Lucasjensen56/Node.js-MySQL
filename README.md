@@ -6,9 +6,9 @@ This app acts as a Amazon-like storefront using MySQL. The app takes in orders f
 
 
 
-### Node Packages Used
-*inquirer
-*mysql
+### Node Packages Used (npm install)
+* inquirer
+* mysql
 
 
 ### How to Use
