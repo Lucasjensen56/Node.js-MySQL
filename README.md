@@ -2,7 +2,13 @@
 
 ## Introduction
 
-### Packages Used
+This app acts as a Amazon-like storefront using MySQL. The app takes in orders from customers and reduces stock from inventory once order is placed. 
+
+
+
+### Node Packages Used
+*inquirer
+*mysql
 
 
 ### How to Use
